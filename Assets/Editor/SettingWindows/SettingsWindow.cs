@@ -73,7 +73,6 @@ public class SettingsWindow : EditorWindow
 
     public enum GeneratorType
     {
-        Default, 
         MainPath,
         Hub
     }
@@ -589,15 +588,6 @@ public class SettingsWindow : EditorWindow
         string[] tabs;
         switch (selectedType)
         {
-            
-            case GeneratorType.Default:
-                tabs = new string[5] { "General", "Random Room Prefabs", "Corridor Prefabs", "Custom Rooms", "Empty" };
-                tabsContent.Add(() => DrawGeneralEditorDefault());
-                tabsContent.Add(() => DrawRandomRoomEditor());
-                tabsContent.Add(() => DrawCorridorEditor());
-                tabsContent.Add(() => DrawCustomRoomEditor());
-                tabsContent.Add(() => DrawEmptyEditor());
-                break;
             case GeneratorType.MainPath:
                 tabs = new string[5] { "General", "Random Room Prefabs", "Corridor Prefabs", "Custom Main Rooms", "Custrom Side Rooms" };
                 tabsContent.Add(() => DrawGeneralEditorMainPath());

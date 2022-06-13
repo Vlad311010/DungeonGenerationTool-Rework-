@@ -6,29 +6,6 @@ using System.Linq;
 
 public abstract class LevelGeneratorBase : MonoBehaviour
 {
-    /*[SerializeField] public GenerationSettings generationSettings;
-
-    [SerializeField] public PrefabsSet[] defaultRoomPrefabsSets;
-    [SerializeField] public PrefabsSet corridorsPrefabsSet;
-
-    [SerializeField] public CustomRoomPrefabsSet[] customRoomPrefabsSets;
-
-    //[SerializeField] public Vector2Int size;
-    [SerializeField] public Vector3 center;
-    [SerializeField] public float cellSize;
-    [SerializeField] public int seed;
-
-    [SerializeField] public int minRoomsAmount;
-    [SerializeField] public int maxRoomsAmount;
-
-    [SerializeField] public Vector2Int minimumRandomRoomSize;
-    [SerializeField] public Vector2Int maximumRandomRoomSize;
-
-    //MainPath
-    [SerializeField] public int minSideRoomsAmount;
-    [SerializeField] public int maxSideRoomsAmount;
-    [SerializeField] public CustomRoomPrefabsSet[] customSideRoomPrefabsSets;
-    */
 
     protected GenerationSettings generationSettings;
     
@@ -52,9 +29,6 @@ public abstract class LevelGeneratorBase : MonoBehaviour
     protected int minSideRoomsAmount;
     protected int maxSideRoomsAmount;
     protected CustomRoomPrefabsSet[] customSideRoomPrefabsSets;
-
-    //pohidni parametry
-    private int roomsNumber;
 
     //debug
     [SerializeField] public Vector2Int highLight = new Vector2Int(0, 0);
