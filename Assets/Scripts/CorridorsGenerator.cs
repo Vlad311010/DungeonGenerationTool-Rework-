@@ -715,23 +715,8 @@ public static class CorridorsGenerator
                     distGraph[i][j] = -1;
             }
         }
-
-
-
-        //GenerateCorridorsFromGraph(grid, graph, allRooms, corridorsPrefabsSet, true);
         graph = BuildMinimalSpaningTree(allRooms.Length - mainRooms.Length, mainRooms.Length, GetGraphEdges(distGraph), graph);
-        Utils.ShowGraph(graph);
         GenerateCorridorsFromGraph(grid, graph, allRooms, corridorsPrefabsSet, false, straightPath);
-        /*try
-        {
-            GenerateCorridorsFromGraph(grid, graph, allRooms, corridorsPrefabsSet, true);
-        }
-        catch (OperationCanceledException)
-        {
-            grid.corridors.Clear();
-            grid.ClearCorridorsMap();
-            GenerateCorridorsFromGraph(grid, graph, allRooms, corridorsPrefabsSet, false);
-        }*/
 
         return graph;
     }

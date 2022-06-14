@@ -8,55 +8,7 @@ public class LevelGeneratorHub : LevelGeneratorBase
    protected int hubConnections;
 
     public LevelGeneratorHub(GenerationSettings settings) : base(settings) { }
-    private Vector2Int VirualGridRoomsPlacement(Room[] rooms, int minDistanceBetweenRooms, Room hub, int roomsXMin, int roomsYMin, List<Room> roomsToReplace)
-    {
-        rooms = rooms.OrderBy(r => UnityEngine.Random.Range(0, 100)).ToArray();
-        Vector2Int gridEdgeOffset = new Vector2Int(0, 0);
-        Vector2Int virtualGridSize = new Vector2Int(rooms[0].width, rooms[0].height) + gridEdgeOffset;
-        int idx = 0;
-        const int ATTEMPTS = 6;
-        int tryCounter = ATTEMPTS;
-        List<Room> placedRooms = rooms.Where(x => !roomsToReplace.Contains(x)).ToList();
-        while (idx < roomsToReplace.Count)
-        {
-            Vector2Int roomSize = new Vector2Int(roomsToReplace[idx].width, roomsToReplace[idx].height);
-            Vector2Int placeingPoint = Utils.RandomVector2Int(gridEdgeOffset, virtualGridSize - gridEdgeOffset);
-            if (CheckRoomCollision(placeingPoint, roomsToReplace[idx], placedRooms, minDistanceBetweenRooms))
-            {
-                if (--tryCounter < 0)
-                {
-                    tryCounter = ATTEMPTS;
-                    virtualGridSize += roomSize / 2;
-                }
-                continue;
-            }
-            else
-            {
-                rooms[idx].gridCoordinates = placeingPoint;
-                if (placeingPoint.x < roomsXMin)
-                    roomsXMin = placeingPoint.x;
-                if (placeingPoint.y < roomsYMin)
-                    roomsYMin = placeingPoint.y;
-
-                placedRooms.Add(rooms[idx]);
-                idx++;
-            }
-        }
-
-        int xmax = 0;
-        int ymax = 0;
-        for (int i = 0; i < placedRooms.Count; i++)
-        {
-            //placedRooms[i].gridCoordinates -= (new Vector2Int(roomsXMin, roomsYMin) - gridEdgeOffset);
-            if (placedRooms[i].gridCoordinates.x + placedRooms[i].width > xmax)
-                xmax = placedRooms[i].gridCoordinates.x + placedRooms[i].width;
-            if (placedRooms[i].gridCoordinates.y + placedRooms[i].height > ymax)
-                ymax = placedRooms[i].gridCoordinates.y + placedRooms[i].height;
-        }
-
-        return new Vector2Int(xmax, ymax) + gridEdgeOffset;
-    }
-
+*-----
     private Vector2Int VirualGridRoomsPlacement(Room[] rooms, int minDistanceBetweenRooms, Room hub, bool optimize = true)
     {
         rooms = rooms.OrderBy(r => UnityEngine.Random.Range(0, 100)).ToArray();
@@ -137,7 +89,6 @@ public class LevelGeneratorHub : LevelGeneratorBase
                 if (placeingPoint.y < roomsYMin)
                     roomsYMin = placeingPoint.y;
 
-                //placedRooms.Add(roomsForReplacing[idx]);
                 idx++;
             }
         }
@@ -160,22 +111,6 @@ public class LevelGeneratorHub : LevelGeneratorBase
     protected override void GetSettings()
     {
         base.GetSettings();
-
-        /*
-        //general
-        seed = generationSettings.seed;
-        center = generationSettings.center;
-        cellSize = generationSettings.cellSize;
-        minRoomsAmount = generationSettings.minRoomsAmount;
-        maxRoomsAmount = generationSettings.maxRoomsAmount;
-        minimumRandomRoomSize = generationSettings.minimumRandomRoomSize;
-        maximumRandomRoomSize = generationSettings.maximumRandomRoomSize;
-        //prefabs
-        defaultRoomPrefabsSets = generationSettings.defaultRoomPrefabsSets;
-        corridorsPrefabsSet = generationSettings.corridorsPrefabsSet;
-        customRoomPrefabsSets = generationSettings.customRoomPrefabsSets;
-        */
-
         hubConnections = generationSettings.hubConnections;
     }
 
@@ -183,17 +118,10 @@ public class LevelGeneratorHub : LevelGeneratorBase
     {
         int roomsNumber = Random.Range(minRoomsAmount, maxRoomsAmount + 1);
 
-        //Room[] roomsPool = RoomsGenerator.GenerateRoomsPool(customRoomPrefabsSets, minimumRandomRoomSize, maximumRandomRoomSize, roomsNumber);
-
         Room[] roomsPool = RoomsGenerator.GenerateRoomsPool(customRoomPrefabsSets, minimumRandomRoomSize, maximumRandomRoomSize,
             roomsNumber, out List<Room> possibleStartRoom, out List<Room> possibleEndRoom);
         Room hub = Utils.RandomChoise(possibleStartRoom);
         roomsPool = roomsPool.Where(x => x != hub).ToArray();
-        //Debug.Log(possibleStartRoom.Count);
-        
-        //Room hub = new Room(5, 5);
-        //Room hub = new Room(CustomRoomData.Load("RotationTest"));
-        //Room hub = new Room(CustomRoomData.Load("BigTestRoom"));
 
         Vector2Int gridSize = VirualGridRoomsPlacement(roomsPool, 3, hub, false);
         Vector3 upperLeftCorner = new Vector3(gridSize.x * -2, 0, gridSize.y * 2);

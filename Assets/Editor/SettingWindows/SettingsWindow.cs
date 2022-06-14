@@ -12,14 +12,9 @@ public class SettingsWindow : EditorWindow
     const float borderOffset = 7f;
     const float propertyFieldHeight = 18;
 
-    private Color headerSectionColor = new Color(115f / 255f, 115f / 255f, 115f / 255f); // 13f / 255f, 32f / 255f, 44f / 255f
+    private Color headerSectionColor = new Color(115f / 255f, 115f / 255f, 115f / 255f);
     private Color tabsSectionColor = new Color(115f / 255f, 115f / 255f, 115f / 255f);
-    private Color editorSectionColor = new Color(56f / 255f, 56f / 255f, 56f / 255f); //105f / 255f, 105f / 255f, 105f / 255f
-
-
-    //private Color headerSectionColor = new Color(0f / 255f, 255f / 255f, 44f / 255f);
-    //private Color tabsSectionColor = new Color(255f / 255f, 115f / 255f, 115f / 255f);
-    //private Color editorSectionColor = new Color(105f / 255f, 105f / 255f, 255f / 255f);
+    private Color editorSectionColor = new Color(56f / 255f, 56f / 255f, 56f / 255f);
 
     private Rect headerSection;
     private Rect tabsSection;

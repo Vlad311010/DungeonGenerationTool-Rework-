@@ -20,31 +20,5 @@ public class GeneratedLevel : MonoBehaviour
             }
             DestroyImmediate(this.gameObject);
         } 
-
-        /*
-        if (generatedLevel == null)
-            return;
-
-        foreach (Transform child in generatedLevel.transform)
-        {
-            Destroy(child.gameObject);
-        }
-        Destroy(generatedLevel);*/
-    }
-
-    public void CleanUp()
-    {
-        if (Application.isPlaying)
-        {
-            GameObject[] objectsToDestroy = GameObject.FindGameObjectsWithTag("ToDestroy");
-            for (int i = 0; i < objectsToDestroy.Length; i++)
-                Destroy(objectsToDestroy[i]);
-        }
-        else
-        {
-            GameObject[] objectsToDestroy = GameObject.FindGameObjectsWithTag("ToDestroy");
-            for (int i = 0; i < objectsToDestroy.Length; i++)
-                DestroyImmediate(objectsToDestroy[i]);
-        }
     }
 }

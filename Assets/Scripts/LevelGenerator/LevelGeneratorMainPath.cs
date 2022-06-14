@@ -10,8 +10,6 @@ public class LevelGeneratorMainPath : LevelGeneratorBase
 
     protected override void Generate()
     {
-
-
         int roomsNumber = UnityEngine.Random.Range(minRoomsAmount, maxRoomsAmount + 1);
         int sideRoomsNumber = UnityEngine.Random.Range(minSideRoomsAmount, maxSideRoomsAmount + 1);
 
@@ -22,22 +20,7 @@ public class LevelGeneratorMainPath : LevelGeneratorBase
         Room startRoom = Utils.RandomChoise(possibleStartRooms);
         Room endRoom = Utils.RandomChoise(possibleEndRooms);
         
-        Debug.Log(startRoom + " -> " + endRoom);
-
-        /*foreach (var item in mainRoomsPool)
-        {
-            Debug.Log(item.GetRoomSize() + ":" + item.gridCoordinates);
-            if (item == startRoom)
-            {
-                Debug.Log(item.GetRoomSize() + ":" + item.gridCoordinates + " - " + startRoom.GetRoomSize() + ":" + startRoom.gridCoordinates);
-            }
-        }*/
         Room[] sideRoomsPool = RoomsGenerator.GenerateRoomsPool(customSideRoomPrefabsSets, minimumRandomRoomSize, maximumRandomRoomSize, sideRoomsNumber);
-
-        /*GameObject rooms = new GameObject("Rooms");
-        rooms.transform.parent = generatedLevel.transform;
-        GameObject corridors = new GameObject("Corridors");
-        corridors.transform.parent = generatedLevel.transform;*/
 
         Room[] allRooms = mainRoomsPool.Concat(sideRoomsPool).ToArray();
         Vector2Int gridSize = VirualGridRoomsPlacementDefault(allRooms, 2);

@@ -359,10 +359,6 @@ public abstract class LevelGeneratorBase : MonoBehaviour
 
     protected abstract void Generate();
 
-    protected virtual void CleanUp()
-    {
-        generatedLevelComponent.CleanUp();
-    }
 
 
     public void RunGenerator()
@@ -370,7 +366,6 @@ public abstract class LevelGeneratorBase : MonoBehaviour
         GetSettings();
         PreGeneration();
         Generate();
-        CleanUp();
     }
 
 
