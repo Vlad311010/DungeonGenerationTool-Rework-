@@ -33,7 +33,7 @@ MonoBehaviour:
     tripleWallTiles:
     - gameObject: {fileID: 8643838481363595991, guid: 2f621ad3524bd9f46bb0a0a458e3dfcd, type: 3}
       tileAlignment: 0
-      defaultEulerAngles: {x: -90, y: 0, z: 0}
+      defaultEulerAngles: {x: -90, y: 0, z: 90}
   corridorsPrefabsSet:
     floorTiles:
     - gameObject: {fileID: 6036817580977198818, guid: cd2f52b00dea457478a6e0634dcad86f, type: 3}
@@ -101,10 +101,10 @@ MonoBehaviour:
     - gameObject: {fileID: 8643838481363595991, guid: 2f621ad3524bd9f46bb0a0a458e3dfcd, type: 3}
       tileAlignment: 0
       defaultEulerAngles: {x: -90, y: 0, z: 90}
-    isStartRoom: 1
+    isStartRoom: 0
     isEndRoom: 0
     roomName: Room2
-    generationChance: 0.817
+    generationChance: 0.892
     maxAmount: 4
   - floorTiles:
     - gameObject: {fileID: 8702719582064678328, guid: cc82249852ea963438da039bcf49ed3b, type: 3}
@@ -126,7 +126,7 @@ MonoBehaviour:
     - gameObject: {fileID: 8643838481363595991, guid: 2f621ad3524bd9f46bb0a0a458e3dfcd, type: 3}
       tileAlignment: 0
       defaultEulerAngles: {x: -90, y: 0, z: 90}
-    isStartRoom: 1
+    isStartRoom: 0
     isEndRoom: 0
     roomName: testRoom
     generationChance: 1
@@ -140,7 +140,7 @@ MonoBehaviour:
   minimumRandomRoomSize: {x: 5, y: 5}
   maximumRandomRoomSize: {x: 9, y: 9}
   minSideRoomsAmount: 2
-  maxSideRoomsAmount: 2
+  maxSideRoomsAmount: 5
   customSideRoomPrefabsSets:
   - floorTiles:
     - gameObject: {fileID: 8702719582064678328, guid: c5dc6447a1811ef44843ecbb38b5005d, type: 3}
@@ -166,5 +166,30 @@ MonoBehaviour:
     isEndRoom: 0
     roomName: BigTestRoom
     generationChance: 1
-    maxAmount: 2
+    maxAmount: 1
+  - floorTiles:
+    - gameObject: {fileID: 8702719582064678328, guid: c5dc6447a1811ef44843ecbb38b5005d, type: 3}
+      tileAlignment: 0
+      defaultEulerAngles: {x: -90, y: 0, z: 0}
+    wallTiles:
+    - gameObject: {fileID: 7937791931300117116, guid: 36dc65787a3006343b04e547d2fb44e3, type: 3}
+      tileAlignment: 2
+      defaultEulerAngles: {x: -90, y: 0, z: 0}
+    cornerWallTiles:
+    - gameObject: {fileID: 1610775157659358789, guid: 9eb928a43d21c1d49818adda9c1bc170, type: 3}
+      tileAlignment: 0
+      defaultEulerAngles: {x: -90, y: 0, z: 0}
+    parallelWallTiles:
+    - gameObject: {fileID: 5467930067855291564, guid: fc3d177a0a663134f849ed08c5fd8a66, type: 3}
+      tileAlignment: 0
+      defaultEulerAngles: {x: -90, y: 0, z: 0}
+    tripleWallTiles:
+    - gameObject: {fileID: 8643838481363595991, guid: 2f621ad3524bd9f46bb0a0a458e3dfcd, type: 3}
+      tileAlignment: 0
+      defaultEulerAngles: {x: -90, y: 0, z: 90}
+    isStartRoom: 0
+    isEndRoom: 0
+    roomName: Room2
+    generationChance: 1
+    maxAmount: 1
   hubConnections: 5

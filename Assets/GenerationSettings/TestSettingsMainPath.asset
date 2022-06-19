@@ -33,7 +33,7 @@ MonoBehaviour:
     tripleWallTiles:
     - gameObject: {fileID: 8643838481363595991, guid: 2f621ad3524bd9f46bb0a0a458e3dfcd, type: 3}
       tileAlignment: 0
-      defaultEulerAngles: {x: -90, y: 0, z: 0}
+      defaultEulerAngles: {x: -90, y: 0, z: 90}
   corridorsPrefabsSet:
     floorTiles:
     - gameObject: {fileID: 6036817580977198818, guid: cd2f52b00dea457478a6e0634dcad86f, type: 3}

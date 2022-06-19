@@ -8,7 +8,7 @@ public class LevelGeneratorHub : LevelGeneratorBase
    protected int hubConnections;
 
     public LevelGeneratorHub(GenerationSettings settings) : base(settings) { }
-*-----
+
     private Vector2Int VirualGridRoomsPlacement(Room[] rooms, int minDistanceBetweenRooms, Room hub, bool optimize = true)
     {
         rooms = rooms.OrderBy(r => UnityEngine.Random.Range(0, 100)).ToArray();

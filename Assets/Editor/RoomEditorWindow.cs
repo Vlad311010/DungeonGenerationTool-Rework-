@@ -146,8 +146,6 @@ public class RoomEditorWindow : EditorWindow
         DrawHeader();
         DrawActionSection();
         DrawEditorGrid();
-
-
     }
 
     void InitDefaultStyle()
@@ -456,14 +454,9 @@ public class RoomEditorWindow : EditorWindow
     }
 
 
-
     void DrawEditorGrid()
     {
-        /*if (!editMode)
-        {
-            Debug.Log("EXIT");
-            return;
-        }*/
+
         if (!editMode)
             return;
 
@@ -481,11 +474,8 @@ public class RoomEditorWindow : EditorWindow
         {
             for (int x = 0; x < gridSize; x++)
             {
-                //buttons[x, y] = GUI.Button(new Rect(cursor, buttonSize), debugText[x, y], GetCustomStyle());
-                //buttons[x, y] = GUI.Button(new Rect(cursor, buttonSize), TagToIcon(tileTag[x,y]), GetCustomStyle());
                 buttons[x, y] = GUI.Button(new Rect(cursor, buttonSize), "", GetCustomStyle());
                 DrawIconFromTag(cursor + buttonIconOffset, buttonIconSize, tags[x, y]);
-                //GUI.DrawTexture(new Rect(cursor+ buttonIconOffset, buttonIconSize), cornerWallRightIcon);
 
                 if (buttons[x, y])
                 {

@@ -5,7 +5,6 @@ using UnityEngine;
 public class WrappedObject
 {
     public GameObject gameObject;
-
     public float tileAlignment;
     public Vector3 defaultEulerAngles;
 

@@ -603,7 +603,6 @@ public static class CorridorsGenerator
     {
         for (int i = 0; i < graph.GetLength(0); i++)
         {
-            //for (int j = i + 1; j < graph.GetLength(0); j++)
             for (int j = 0; j < i; j++)
             {
                 if (i >= startFrom && graph[i][j] > 0)

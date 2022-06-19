@@ -10,9 +10,6 @@ public class CustomRoomData
     public string name { get; private set; }
     public int size { get; private set; }
     public TileTag[,] tagsData { get; private set; }
-    //public bool IsStartRoom { get; private set; }
-    //public bool IsExitRoom { get; private set; }
-    //public bool IsOptionalRoom { get; private set; }
 
     public CustomRoomData(string name, int size, TileTag[,] tagsData)
     {

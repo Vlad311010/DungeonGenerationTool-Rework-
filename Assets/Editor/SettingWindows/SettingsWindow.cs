@@ -105,7 +105,7 @@ public class SettingsWindow : EditorWindow
 
     public void Validate()
     {
-        //cellSize.floatValue = cellSize.floatValue > 0.1f ? cellSize.floatValue : 0.1f;
+        cellSize.floatValue = cellSize.floatValue > 0.1f ? cellSize.floatValue : 0.1f;
         minRoomsAmount.intValue = Math.Min(minRoomsAmount.intValue, maxRoomsAmount.intValue);
         maxRoomsAmount.intValue = Math.Max(minRoomsAmount.intValue, maxRoomsAmount.intValue);
         Vector2Int minRandomRoomSizeValue = minRandomRoomSize.vector2IntValue;
@@ -118,13 +118,6 @@ public class SettingsWindow : EditorWindow
         maxSideRoomsAmount.intValue = Math.Max(minSideRoomsAmount.intValue, maxSideRoomsAmount.intValue);
         minRandomRoomSize.vector2IntValue = minRandomRoomSizeValue;
         maxRandomRoomSize.vector2IntValue = maxRandomRoomSizeValue;
-    }
-
-    private Rect DrawPropertyField(Rect position, SerializedProperty property, GUIContent label)
-    {
-        position = EditorGUI.PrefixLabel(position, label);
-        EditorGUI.PropertyField(position, property, new GUIContent(""));
-        return position;
     }
 
     private void DrawPropertyWithScroll(Rect position, string propertyName)
@@ -148,7 +141,6 @@ public class SettingsWindow : EditorWindow
         GUILayout.EndArea();
         GUI.EndScrollView();
     }
-
 
 
     void DrawLayouts()
@@ -176,7 +168,6 @@ public class SettingsWindow : EditorWindow
 
     private void DrawHeader()
     {
-        //var types = Enum.GetValues(typeof(GeneratorType));
         SerializedProperty type = serializedObject.FindProperty("selectedType");
         string[] names = Enum.GetNames(typeof(GeneratorType));
         selectedType = (GeneratorType)type.intValue;

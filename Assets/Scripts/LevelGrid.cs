@@ -22,7 +22,6 @@ public class LevelGrid
 
     public LevelGrid(Vector3 upperLeftCorner, Vector2Int gridSize, float cellSize)
     {
-        //this.center = center;
         this.upperLeftCornerWorld = upperLeftCorner;
         this.upperLeftCornerGrid = new Vector2Int(0, 0);
         this.gridSize = gridSize;
@@ -102,9 +101,8 @@ public class LevelGrid
         Vector2Int coordinates = corridorMapTile.gridCoordinates;
         return coordinates.x >= halfExtensionSize && coordinates.y >= halfExtensionSize
             && coordinates.x - halfExtensionSize < gridSize.x && coordinates.y - halfExtensionSize < gridSize.y;
-        //return !(coordinates.x < halfExtensionSize || coordinates.y < halfExtensionSize
-        //|| coordinates.x-halfExtensionSize >= gridSize.x || coordinates.y- halfExtensionSize >= gridSize.y);
     }
+
     public GridTile FromCorridorToRoomMap(GridTile corridorMapTile)
     {
         Vector2Int coordinates = corridorMapTile.gridCoordinates;
@@ -113,11 +111,6 @@ public class LevelGrid
 
         return GetRoomMapTile(coordinates - new Vector2Int(halfExtensionSize, halfExtensionSize));
     }
-
-    /*public void AddRoom(Room room)
-    {
-        rooms.Add(room);
-    }*/
 
     public void AddCorridor(Corridor corridor)
     {
@@ -142,16 +135,6 @@ public class LevelGrid
         return adjacentTiles;
     }
 
-    public void ClearCorridorsMap()
-    {
-        for (int i = 0; i < gridRealSize.y; i++)
-        {
-            for (int j = 0; j < gridRealSize.x; j++)
-            {
-                corridorsMap[j + gridRealSize.y * i] = new GridTile(corridorsMap[j + gridRealSize.y * i].worldCoordinates, new Vector2Int(j, i), TileTag.Empty());
-            }
-        }
-    }
 
     public void DebugDrawRoomMap(Color color)
     {
