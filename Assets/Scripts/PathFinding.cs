@@ -8,13 +8,12 @@ public class PathFinding
 {
     private static int Heuristic(GridTile end, GridTile tile)
     {
-        return (int)Vector2Int.Distance(tile.gridCoordinates, end.gridCoordinates) + UnityEngine.Random.Range(0, 100);
+        return (int)Vector2Int.Distance(tile.gridCoordinates, end.gridCoordinates);
     }
+
     public static Tuple<List<GridTile>, List<GridTile>> AStar(LevelGrid grid, GridTile start, GridTile end,
         bool avoidIntersection=false, bool straightPath=true)
     {
-        //int generatorSeed = (int)DateTime.Now.Ticks;
-        //UnityEngine.Random.InitState(generatorSeed);
         for (int y = 0; y < grid.gridRealSize.y; y++)
         {
             for (int x = 0; x < grid.gridRealSize.x; x++)
@@ -33,11 +32,9 @@ public class PathFinding
         parents.Add(start.gridCoordinates, new Vector2Int(-1, -1));
 
         Func<GridTile, bool> Filter = t => (t.tag.map != TileMap.room || t.gridCoordinates == grid.FromCorridorToRoomMap(end).gridCoordinates);
-        //Func<GridTile, bool> Filter = t => ( (t.tag.map != TileMap.room && !t.tag.avoideInPathFinding) || t.gridCoordinates == grid.FromCorridorToRoomMap(end).gridCoordinates);
 
         while (openList.Count != 0)
         {
-            //int r = UnityEngine.Random.Range(0, Math.Min(openList.Count, 5)); // that line gives some path randomnes
             int r;
             if (straightPath)
                 r = 0;
@@ -45,8 +42,6 @@ public class PathFinding
                 r = UnityEngine.Random.Range(0, Math.Min(openList.Count, 5));
 
             GridTile currentNode = openList[r];
-            //if (currentNode.tag.map == TileMap.corridor && UnityEngine.Random.value > 0.1)
-            //continue;
 
             openList.RemoveAt(r);
             closedList.Add(currentNode);
@@ -59,20 +54,14 @@ public class PathFinding
             List<GridTile> adjacent = grid.GetAdjacentTiles(currentNode);
             for (int i = 0; i < adjacent.Count; i++)
             {
-                //if (!closedList.Contains(adjacent[i]) && Filter(grid.FromCorridorToRoomMap(adjacent[i])))
-
                 if (!closedList.Contains(adjacent[i]))
-                //(grid.CanConvertCorridorToRoomMap(adjacent[i]) || Filter(grid.FromCorridorToRoomMap(adjacent[i]))))
                 {
                     if (avoidIntersection && adjacent[i].tag.avoideInPathFinding)
                         continue;
                     if (grid.CanConvertCorridorToRoomMap(adjacent[i]) && !Filter(grid.FromCorridorToRoomMap(adjacent[i])))
                         continue;
-                    //Debug.Log(grid.CanConvertCorridorToRoomMap(adjacent[i]) + " " + adjacent[i].gridCoordinates);
                     if (!openList.Contains(adjacent[i]))
                     {
-
-                        //int newG = grid.GetCorridorMapTile(currentNode.gridCoordinates).g + (int)Vector2Int.Distance(currentNode.gridCoordinates, adjacent[i].gridCoordinates);
                         int newG = currentNode.g + (int)Vector2Int.Distance(currentNode.gridCoordinates, adjacent[i].gridCoordinates);
                         adjacent[i].g = newG;
                         adjacent[i].f = newG + Heuristic(end, adjacent[i]);
@@ -83,9 +72,7 @@ public class PathFinding
                 }
             }
         }
-        //Debug.LogError("Cant find path from " + start.gridCoordinates + " to " + end.gridCoordinates);
         throw new OperationCanceledException("Cant find path from " + start.gridCoordinates + " to " + end.gridCoordinates);
-        //return new Tuple<List<GridTile>, List<GridTile>>(new List<GridTile>(), new List<GridTile>());
     }
 
 

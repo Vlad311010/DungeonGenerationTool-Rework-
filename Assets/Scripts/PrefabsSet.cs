@@ -14,10 +14,10 @@ public class PrefabsSet
 [Serializable]
 public class CustomRoomPrefabsSet : PrefabsSet
 {
-    [SerializeField] public bool isStartRoom;// { get; private set; }
-    [SerializeField] public bool isEndRoom;// { get; private set; }
+    [SerializeField] public bool isStartRoom;
+    [SerializeField] public bool isEndRoom;
     [SerializeField] public string roomName;
     [SerializeField] public float generationChance;
-    [SerializeField] public int maxAmount; // generate this room <= then {amount}
+    [SerializeField] public int maxAmount;
 }
 

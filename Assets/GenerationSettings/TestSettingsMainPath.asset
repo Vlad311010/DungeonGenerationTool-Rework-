@@ -81,16 +81,66 @@ MonoBehaviour:
     roomName: BigTestRoom
     generationChance: 1
     maxAmount: 1
+  - floorTiles:
+    - gameObject: {fileID: 8702719582064678328, guid: cc82249852ea963438da039bcf49ed3b, type: 3}
+      tileAlignment: 0
+      defaultEulerAngles: {x: -90, y: 0, z: 0}
+    wallTiles:
+    - gameObject: {fileID: 7937791931300117116, guid: 36dc65787a3006343b04e547d2fb44e3, type: 3}
+      tileAlignment: 2
+      defaultEulerAngles: {x: -90, y: 0, z: 0}
+    cornerWallTiles:
+    - gameObject: {fileID: 1610775157659358789, guid: 9eb928a43d21c1d49818adda9c1bc170, type: 3}
+      tileAlignment: 0
+      defaultEulerAngles: {x: -90, y: 0, z: 0}
+    parallelWallTiles:
+    - gameObject: {fileID: 5467930067855291564, guid: fc3d177a0a663134f849ed08c5fd8a66, type: 3}
+      tileAlignment: 0
+      defaultEulerAngles: {x: -90, y: 0, z: 0}
+    tripleWallTiles:
+    - gameObject: {fileID: 8643838481363595991, guid: 2f621ad3524bd9f46bb0a0a458e3dfcd, type: 3}
+      tileAlignment: 0
+      defaultEulerAngles: {x: -90, y: 0, z: 90}
+    isStartRoom: 0
+    isEndRoom: 1
+    roomName: Room1
+    generationChance: 1
+    maxAmount: 1
+  - floorTiles:
+    - gameObject: {fileID: 8702719582064678328, guid: cc82249852ea963438da039bcf49ed3b, type: 3}
+      tileAlignment: 0
+      defaultEulerAngles: {x: -90, y: 0, z: 0}
+    wallTiles:
+    - gameObject: {fileID: 7937791931300117116, guid: 36dc65787a3006343b04e547d2fb44e3, type: 3}
+      tileAlignment: 2
+      defaultEulerAngles: {x: -90, y: 0, z: 0}
+    cornerWallTiles:
+    - gameObject: {fileID: 1610775157659358789, guid: 9eb928a43d21c1d49818adda9c1bc170, type: 3}
+      tileAlignment: 0
+      defaultEulerAngles: {x: -90, y: 0, z: 0}
+    parallelWallTiles:
+    - gameObject: {fileID: 5467930067855291564, guid: fc3d177a0a663134f849ed08c5fd8a66, type: 3}
+      tileAlignment: 0
+      defaultEulerAngles: {x: -90, y: 0, z: 0}
+    tripleWallTiles:
+    - gameObject: {fileID: 8643838481363595991, guid: 2f621ad3524bd9f46bb0a0a458e3dfcd, type: 3}
+      tileAlignment: 0
+      defaultEulerAngles: {x: -90, y: 0, z: 90}
+    isStartRoom: 0
+    isEndRoom: 0
+    roomName: Room2
+    generationChance: 0.784
+    maxAmount: 4
   center: {x: -50, y: 0, z: 0}
   straightPath: 1
   cellSize: 4
   seed: 0
-  minRoomsAmount: 3
-  maxRoomsAmount: 6
-  minimumRandomRoomSize: {x: 6, y: 6}
-  maximumRandomRoomSize: {x: 9, y: 9}
-  minSideRoomsAmount: 2
-  maxSideRoomsAmount: 5
+  minRoomsAmount: 8
+  maxRoomsAmount: 10
+  minimumRandomRoomSize: {x: 9, y: 7}
+  maximumRandomRoomSize: {x: 13, y: 13}
+  minSideRoomsAmount: 3
+  maxSideRoomsAmount: 3
   customSideRoomPrefabsSets:
   - floorTiles:
     - gameObject: {fileID: 8702719582064678328, guid: c5dc6447a1811ef44843ecbb38b5005d, type: 3}
@@ -141,5 +191,5 @@ MonoBehaviour:
     isEndRoom: 0
     roomName: Room2
     generationChance: 1
-    maxAmount: 1
+    maxAmount: 2
   hubConnections: 5

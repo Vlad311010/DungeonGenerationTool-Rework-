@@ -9,11 +9,13 @@ public class LevelGeneratorHub : LevelGeneratorBase
 
     public LevelGeneratorHub(GenerationSettings settings) : base(settings) { }
 
+    Vector2Int gridEdgeOffset = new Vector2Int(0, 0);
+
+
     private Vector2Int VirualGridRoomsPlacement(Room[] rooms, int minDistanceBetweenRooms, Room hub, bool optimize = true)
     {
         rooms = rooms.OrderBy(r => UnityEngine.Random.Range(0, 100)).ToArray();
         List<Room> placedRooms = new List<Room>();
-        Vector2Int gridEdgeOffset = new Vector2Int(0, 0);
         Vector2Int virtualGridSize = new Vector2Int(rooms[0].width, rooms[0].height);
         int roomsXMin = int.MaxValue;
         int roomsYMin = int.MaxValue;
@@ -66,18 +68,29 @@ public class LevelGeneratorHub : LevelGeneratorBase
                 roomsForReplacing.Add(rooms[i]);
         }
 
-        
-        idx = 0;
+
+        if (roomsForReplacing.Count > 0)
+            return ReplaceRooms(rooms, minDistanceBetweenRooms, hub, new Vector2Int(xmax, ymax), placedRooms, roomsForReplacing, roomsXMin, roomsYMin);
+        return new Vector2Int(xmax, ymax) + gridEdgeOffset;
+     
+    }
+
+    private Vector2Int ReplaceRooms(Room[] rooms, int minDistanceBetweenRooms, Room hub, Vector2Int gridSize, List<Room> placedRooms, List<Room> roomsForReplacing, int roomsXMin, int roomsYMin)
+    {
+        const int ATTEMPTS = 60;
+        int tryCounter = ATTEMPTS;
+        int idx = 0;
         while (idx < roomsForReplacing.Count)
         {
+            
             Vector2Int roomSize = new Vector2Int(roomsForReplacing[idx].width, roomsForReplacing[idx].height);
-            Vector2Int placeingPoint = Utils.RandomVector2Int(gridEdgeOffset, virtualGridSize - gridEdgeOffset);
+            Vector2Int placeingPoint = Utils.RandomVector2Int(gridEdgeOffset, gridSize - gridEdgeOffset);
             if (CheckRoomCollision(placeingPoint, roomsForReplacing[idx], placedRooms.Concat(new List<Room>() { hub }).ToList(), minDistanceBetweenRooms))
             {
                 if (--tryCounter < 0)
                 {
                     tryCounter = ATTEMPTS;
-                    virtualGridSize += roomSize / 2;
+                    gridSize += roomSize / 2;
                 }
                 continue;
             }
@@ -93,8 +106,8 @@ public class LevelGeneratorHub : LevelGeneratorBase
             }
         }
 
-        xmax = 0;
-        ymax = 0;
+        int xmax = 0;
+        int ymax = 0;
         for (int i = 0; i < placedRooms.Count; i++)
         {
             placedRooms[i].gridCoordinates -= (new Vector2Int(roomsXMin, roomsYMin) - gridEdgeOffset);
@@ -105,7 +118,6 @@ public class LevelGeneratorHub : LevelGeneratorBase
         }
 
         return new Vector2Int(xmax, ymax) + gridEdgeOffset;
-     
     }
 
     protected override void GetSettings()

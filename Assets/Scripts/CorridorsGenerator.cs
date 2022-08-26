@@ -70,6 +70,7 @@ public static class CorridorsGenerator
         }
         return children;
     }
+
     private static bool CycleSearch(float[][] graph)
     {
         List<int> visited = new List<int>();
@@ -82,6 +83,7 @@ public static class CorridorsGenerator
 
         return false;
     }
+
     private static bool HaveCycle(float[][] graph, int node, int prevNode, ref List<int> visited, ref List<int> finished)
     {
         if (finished.Contains(node))
@@ -311,14 +313,9 @@ public static class CorridorsGenerator
     {
         int edgesCount = 0;
         List<Tuple<List<int>, Vector2>> disconectedGroups = new List<Tuple<List<int>, Vector2>>(groups);
-        int ec = 1000;
         while (edgesCount < groups.Count-1 && disconectedGroups.Count > 0)
         {
-            if (ec-- < 0)
-            {
-                Debug.LogError("LOOP");
-                break;
-            }
+ 
             Tuple<List<int>, Vector2> firstGroup = Utils.RandomChoise(disconectedGroups);
 
             Tuple<List<int>, Vector2> secondGroup = disconectedGroups
@@ -350,7 +347,7 @@ public static class CorridorsGenerator
 
 
 
-    private static float[][] BuildConsecventive(float[][] distanceGraph, Room[] rooms, int startRoom, int endRoom)
+    /*private static float[][] BuildConsecventive(float[][] distanceGraph, Room[] rooms, int startRoom, int endRoom)
     {
         int roomsNumber = rooms.Length;
         float[][] graph = new float[roomsNumber][];
@@ -366,10 +363,12 @@ public static class CorridorsGenerator
         while (edgesCount != roomsNumber-1)
         {
             int[] unvisitedNeigbours;
-            if (edgesCount < roomsNumber-2)
+            if (edgesCount < roomsNumber - 2)
                 unvisitedNeigbours = GetNClosestNode(currentNode, distanceGraph, roomsNumber).Where(x => !visited.Contains(x) && x != currentNode && x != endRoom).ToArray();
             else
-                unvisitedNeigbours = GetNClosestNode(currentNode, distanceGraph, roomsNumber).Where(x => !visited.Contains(x) && x != currentNode).ToArray();
+            {
+                unvisitedNeigbours = GetNClosestNode(currentNode, distanceGraph, roomsNumber).Where(x => !visited.Contains(x) && x != currentNode && x == endRoom).ToArray();
+            }
             
             if (unvisitedNeigbours.Length == 0)
                 throw new Exception("Error");
@@ -382,7 +381,31 @@ public static class CorridorsGenerator
         }
 
         return graph;
+    }*/
 
+    private static float[][] BuildConsecventive(float[][] distanceGraph, Room[] rooms, int startRoom, int endRoom)
+    {
+        int roomsNumber = rooms.Length;
+        float[][] graph = new float[roomsNumber][];
+        for (int i = 0; i < roomsNumber; i++)
+        {
+            graph[i] = new float[roomsNumber];
+            for (int j = 0; j < roomsNumber; j++)
+                graph[i][j] = -1;
+        }
+        List<int> visited = new List<int>() { startRoom };
+        int currentNode = 0;
+        int edgesCount = 0;
+        while (edgesCount != roomsNumber - 1)
+        {
+            graph[currentNode][currentNode+1] = distanceGraph[currentNode][currentNode+1];
+            graph[currentNode+1][currentNode] = distanceGraph[currentNode][currentNode+1];
+            visited.Add(currentNode);
+            currentNode += 1;
+            edgesCount++;
+        }
+
+        return graph;
     }
 
     private static List<int[]> GetAllHubGroups(float[][] graph, int[] leafes, int hubIdx)
@@ -615,7 +638,7 @@ public static class CorridorsGenerator
         SetUpCorridorsWallsAndPrefabs(grid, corridorsPrefabsSet);
     }
 
-    private static void SetUpCorridorsWallsAndPrefabs(LevelGrid grid, PrefabsSet corridorsPrefabsSet)
+    public/*private */static void SetUpCorridorsWallsAndPrefabs(LevelGrid grid, PrefabsSet corridorsPrefabsSet)
     {
         foreach (Corridor corridor in grid.corridors)
         {

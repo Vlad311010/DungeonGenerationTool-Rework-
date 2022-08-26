@@ -188,7 +188,7 @@ public abstract class LevelGeneratorBase : MonoBehaviour
         return false;
     }
 
-    protected virtual Vector2Int VirualGridRoomsPlacementDefault(Room[] rooms, int minDistanceBetweenRooms, bool optimize = true)
+    protected virtual Vector2Int VirualGridRoomsPlacement(Room[] rooms, int minDistanceBetweenRooms, bool optimize = true)
     {
         rooms = rooms.OrderBy(r => UnityEngine.Random.Range(0, 100)).ToArray();
         List<Room> placedRooms = new List<Room>();
@@ -201,13 +201,6 @@ public abstract class LevelGeneratorBase : MonoBehaviour
         int tryCounter = ATTEMPTS;
         while (idx < rooms.Length)
         {
-            /*if (rooms[idx].IsPlaced())
-            {
-                placedRooms.Add(rooms[idx]);
-                idx++;
-                continue;
-            }*/
-
             Vector2Int roomSize = rooms[idx].GetRoomSize();
             Vector2Int placeingPoint = Utils.RandomVector2Int(gridEdgeOffset, virtualGridSize - gridEdgeOffset);
             if (CheckRoomCollision(placeingPoint, rooms[idx], placedRooms, minDistanceBetweenRooms))
@@ -245,7 +238,7 @@ public abstract class LevelGeneratorBase : MonoBehaviour
         return new Vector2Int(xmax, ymax) + gridEdgeOffset;
     }
 
-    protected Vector2Int VirualGridRoomsPlacementDefault(Room[] rooms, int minDistanceBetweenRooms, Room start, Room end, float minDistanceBetweenStartAndEnd, bool optimize = true)
+    protected Vector2Int VirualGridRoomsPlacement(Room[] rooms, int minDistanceBetweenRooms, Room start, Room end, float minDistanceBetweenStartAndEnd, bool optimize = true)
     {
         rooms = rooms.OrderBy(r => UnityEngine.Random.Range(0, 100)).ToArray();
         List<Room> placedRooms = new List<Room>();
@@ -309,7 +302,58 @@ public abstract class LevelGeneratorBase : MonoBehaviour
         {
             start.RestartPlacingPos();
             end.RestartPlacingPos();
-            return VirualGridRoomsPlacementDefault(rooms, minDistanceBetweenRooms, start, end, minDistanceBetweenStartAndEnd, false);
+            return VirualGridRoomsPlacement(rooms, minDistanceBetweenRooms, start, end, minDistanceBetweenStartAndEnd, false);
+        }
+        return new Vector2Int(xmax, ymax) + gridEdgeOffset;
+    }
+
+
+    protected virtual Vector2Int VirualGridRoomsPlacement(Room[] roomsToPlace, Room[] placed, Vector2Int gridSize, int minDistanceBetweenRooms, bool optimize = true)
+    {
+        roomsToPlace = roomsToPlace.OrderBy(r => UnityEngine.Random.Range(0, 100)).ToArray();
+        List<Room> placedRooms = new List<Room>(placed);
+        Vector2Int gridEdgeOffset = new Vector2Int(1, 1);
+        Vector2Int virtualGridSize = gridSize;
+        int roomsXMin = int.MaxValue;
+        int roomsYMin = int.MaxValue;
+        int idx = 0;
+        const int ATTEMPTS = 6;
+        int tryCounter = ATTEMPTS;
+        while (idx < roomsToPlace.Length)
+        {
+            Vector2Int roomSize = roomsToPlace[idx].GetRoomSize();
+            Vector2Int placeingPoint = Utils.RandomVector2Int(gridEdgeOffset, virtualGridSize - gridEdgeOffset);
+            if (CheckRoomCollision(placeingPoint, roomsToPlace[idx], placedRooms, minDistanceBetweenRooms))
+            {
+                if (--tryCounter < 0)
+                {
+                    tryCounter = ATTEMPTS;
+                    virtualGridSize += roomSize / 2;
+                }
+                continue;
+            }
+            else
+            {
+                roomsToPlace[idx].gridCoordinates = placeingPoint;
+                if (placeingPoint.x < roomsXMin)
+                    roomsXMin = placeingPoint.x;
+                if (placeingPoint.y < roomsYMin)
+                    roomsYMin = placeingPoint.y;
+
+                placedRooms.Add(roomsToPlace[idx]);
+                idx++;
+            }
+        }
+        int xmax = 0;
+        int ymax = 0;
+        for (int i = 0; i < placedRooms.Count; i++)
+        {
+            //if (optimize)
+                //placedRooms[i].gridCoordinates -= (new Vector2Int(roomsXMin, roomsYMin) - gridEdgeOffset);
+            if (placedRooms[i].gridCoordinates.x + placedRooms[i].width > xmax)
+                xmax = placedRooms[i].gridCoordinates.x + placedRooms[i].width;
+            if (placedRooms[i].gridCoordinates.y + placedRooms[i].height > ymax)
+                ymax = placedRooms[i].gridCoordinates.y + placedRooms[i].height;
         }
         return new Vector2Int(xmax, ymax) + gridEdgeOffset;
     }
